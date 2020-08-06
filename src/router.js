@@ -1,23 +1,76 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import lStorage from './local-storage'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () =>
+        import(/* webpackChunkName: "auth" */ './views/Auth.vue'),
+    },
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: () =>
+        import(/* webpackChunkName: "home" */ './views/Home.vue'),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      path: '/search',
+      name: 'search',
+      component: () =>
+        import(/* webpackChunkName: "search" */ './views/Search.vue'),
+      props: true,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/saved-searches',
+      name: 'saved-searches',
+      component: () =>
+        import(/* webpackChunkName: "saved-searches" */ './views/SavedSearches.vue'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () =>
+        import(/* webpackChunkName: "profile" */ './views/Profile.vue'),
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/404',
+      component: () =>
+        import(/* webpackChunkName: "not-found" */ './views/NotFound.vue'),
+    },
+    {
+      path: '*',
+      redirect: '/404',
+    },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!lStorage.isUserSignedIn()) {
+      return next({
+        path: '/auth',
+      })
+    }
+  }
+
+  next();
+})
+
+export default router
