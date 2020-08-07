@@ -1,10 +1,18 @@
-query($filterQuery: String!) { 
+query($filterQuery: String!, $after: String, $pageSize: Int) { 
   search(
     type: REPOSITORY
     query: $filterQuery
-    first: 10
+    first: $pageSize
+    after: $after
   ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
     repos: edges {
+      cursor
       repo: node {
         ... on Repository {
           owner {

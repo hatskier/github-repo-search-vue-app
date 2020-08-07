@@ -3,7 +3,7 @@
     <h1 class="text-center mt-3">Saved searches</h1>
 
     <v-card max-width="500" class="mx-auto mt-5">
-      <v-list>
+      <v-list v-if="searchTerms.length > 0">
         <v-list-item
           v-for="(term, index) in searchTerms"
           :key="index"
@@ -17,8 +17,10 @@
             <v-icon>delete</v-icon>
           </v-list-item-icon>
         </v-list-item>
-
       </v-list>
+      <v-card-title v-else>
+        You have no saved search terms 😉
+      </v-card-title>
     </v-card>
   </div>
 </template>
@@ -26,15 +28,10 @@
 <script>
 export default {
   name: 'SavedSearches',
-  data() {
-    return {
-
-    }
-  },
   computed: {
     searchTerms() {
       return this.$store.state.savedSearchTerms
-    }
+    },
   },
   methods: {
     async deleteTerm(term) {

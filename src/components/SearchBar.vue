@@ -1,19 +1,23 @@
 <template>
   <div>
-    <v-menu v-model="menu" bottom :offset-y="true">
+    <v-menu
+      v-model="menu"
+      bottom
+      :offset-y="true"
+      :disabled="selectableOptions.length === 0"
+    >
       <template v-slot:activator="{ on, attrs }">
         <v-text-field
           v-bind="attrs"
           v-on="on"
           class="pa-5 pb-1 mb-4"
           outlined
-          label="Search github repositories"
+          label="Search github repositories | click to select from saved"
           v-model="searchQuery"
           clearable
           hide-details
           :loading="loading"
           @keyup.enter.native="performSearch"
-          @keyup.native="hideMenu"
           append-icon="search"
           @click:append="performSearch"
         ></v-text-field>
@@ -59,6 +63,11 @@ export default {
     },
     hideMenu() {
       this.menu = false
+    }
+  },
+  watch: {
+    searchQuery() {
+      this.hideMenu()
     }
   },
 }
