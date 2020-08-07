@@ -13,6 +13,7 @@
             :loading="loading"
             large
             color="primary"
+            data-cy="sign-in-button"
             @click="signInWithGithub()"
           >
             Sign In with Github

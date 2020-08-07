@@ -19,6 +19,7 @@
           :loading="loading"
           @keyup.enter.native="performSearch"
           append-icon="search"
+          data-cy="search-input"
           @click:append="performSearch"
         ></v-text-field>
       </template>
