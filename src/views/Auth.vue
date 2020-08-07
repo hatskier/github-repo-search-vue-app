@@ -25,7 +25,7 @@
 
 <script>
 import firebase from 'firebase/app'
-import lStorage from '@/local-storage'
+import { onLogin } from '@/vue-apollo'
 
 export default {
   name: 'Auth',
@@ -44,9 +44,8 @@ export default {
         const result = await firebase.auth().signInWithPopup(provider)
         const token = result.credential.accessToken
 
-        // Saving token in global application state and in local storage
-        this.$store.dispatch('updateGithubAccessToken', token)
-        lStorage.updateGithubAccessToken(token)
+        // Using oAuth token for graphQL authentication
+        await onLogin(this.$apollo.provider.defaultClient, token)
 
         // Finishing authentication
         this.$toast.success('Authentication completed')

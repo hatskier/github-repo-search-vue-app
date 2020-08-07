@@ -1,0 +1,28 @@
+query($filterQuery: String!) { 
+  search(
+    type: REPOSITORY
+    query: $filterQuery
+    first: 10
+  ) {
+    repos: edges {
+      repo: node {
+        ... on Repository {
+          owner {
+            id
+            login
+            url
+            avatarUrl
+          }
+          name
+          url
+          openIssues: issues(states:OPEN) {
+            totalCount
+          }
+          stars: stargazers {
+            totalCount
+          }
+        }
+      }
+    }
+  }
+}

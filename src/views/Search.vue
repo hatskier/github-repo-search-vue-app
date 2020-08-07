@@ -1,10 +1,50 @@
 <template>
   <div class="search">
-    <SearchBar @search="performSearch" />
+    <SearchBar
+      :loading="loading"
+      @search="performSearch"
+      :selectableOptions="savedSearchTerms"
+    />
 
-    <GithubRepoCard />
+    <h2 v-if="currentSearchTerm" class="text-center">
+      <span class="light-text">Results for:</span>
+      {{ currentSearchTerm }}
+      <v-tooltip v-if="!searchTermIsSaved(currentSearchTerm)" bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            color="primary"
+            v-bind="attrs"
+            v-on="on"
+            @click="saveSearchTerm()"
+          >
+            <v-icon>save</v-icon>
+          </v-btn>
+        </template>
+        <span>Save this search term</span>
+      </v-tooltip>
+      
+    </h2>
 
-    {{ repositories }}
+    <v-container>
+      <v-row>
+        <v-col
+          v-for="({ repo }, index) in repositories"
+          :key="index" cols="12" sm="6" md="4"
+        >
+          <GithubRepoCard
+            :name="repo.name"
+            :url="repo.url"
+            :owner="repo.owner.login"
+            :ownerUrl="repo.owner.url"
+            :ownerAvatar="repo.owner.avatarUrl"
+            :stars="repo.stars.totalCount"
+            :openIssues="repo.openIssues.totalCount"
+          />
+        </v-col>
+      </v-row>
+
+    </v-container>
   </div>
 </template>
 
@@ -16,19 +56,47 @@ export default {
   name: 'Search',
   data() {
     return {
-      lastSearchedQuery: '',
+      currentSearchTerm: '',
       repositories: [],
+      loading: false,
     }
   },
   methods: {
-    performSearch(searchQuery) {
-      // TODO implement github graphql integration here
-      this.$toast.success(`It will search for query: ${searchQuery}`)
+    async performSearch(searchTerm) {
+      try {
+        this.loading = true
+        this.currentSearchTerm = searchTerm
+        const response = await this.$apollo.query({
+          query: require('@/graphql/search-repos.gql'),
+          variables: {
+            filterQuery: `${searchTerm} in:name,description"`
+          }
+        })
+        this.repositories = response.data.search.repos
+      } catch (err) {
+        console.error(err)
+        this.$toast.error(err.message)
+      } finally {
+        this.loading = false
+      }
+    },
+
+    saveSearchTerm() {
+      this.$store.dispatch('addSearchTerm', this.currentSearchTerm)
+      this.$toast.success('Search term saved')
+    },
+
+    searchTermIsSaved(searchTerm) {
+      return this.savedSearchTerms.includes(searchTerm)
+    },
+  },
+
+  computed: {
+    savedSearchTerms() {
+      return this.$store.state.savedSearchTerms
     }
   },
-  computed: {
 
-  },
   components: {
     SearchBar,
     GithubRepoCard,
@@ -36,6 +104,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.light-text {
+  font-weight: 300;
+}
 
 </style>

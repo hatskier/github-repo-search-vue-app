@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import lStorage from './local-storage'
+import { isUserLoggedIn } from '@/vue-apollo'
 
 Vue.use(Router)
 
@@ -63,7 +63,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!lStorage.isUserSignedIn()) {
+    if (!isUserLoggedIn()) {
       return next({
         path: '/auth',
       })

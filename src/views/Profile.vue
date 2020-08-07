@@ -19,6 +19,7 @@
 <script>
 import firebase from 'firebase/app'
 import UserAvatar from '@/components/UserAvatar'
+import { onLogout } from '@/vue-apollo'
 
 export default {
   name: 'Profile',
@@ -34,6 +35,7 @@ export default {
         const logOutConfirmation = await this.$confirm(question)
         if (logOutConfirmation) {
           await firebase.auth().signOut()
+          await onLogout(this.$apollo.provider.defaultClient)
           this.$toast.success(`You've been successfully signed out`)
         }
       } catch (err) {

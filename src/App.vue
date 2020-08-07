@@ -13,7 +13,6 @@ import 'firebase/auth'
 
 import config from '@/config'
 import NavBar from '@/components/NavBar'
-import lStorage from '@/local-storage'
 
 import 'vue-toast-notification/dist/theme-sugar.css'
 
@@ -25,12 +24,10 @@ export default {
       firebase.initializeApp(config.firebase)
     }
 
-    const token = lStorage.getGithubAccessToken()
-    this.$store.dispatch('updateGithubAccessToken', token)
+    this.$store.dispatch('loadSearchTermsFromLocalStorage')
 
     firebase.auth().onAuthStateChanged((user) => {
       this.$store.dispatch('updateCurrentUser', user)
-      lStorage.updateUserAuthState(user)
       if (!user && this.$route.name !== 'auth') {
         this.$router.push({ path: '/auth' })
       }

@@ -1,16 +1,38 @@
 <template>
   <div>
-    <v-text-field
-      class="pa-5"
-      outlined
-      label="Search github repositories"
-      v-model="searchQuery"
-      clearable
-      :loading="loading"
-      @keyup.enter.native="performSearch"
-      append-icon="search"
-      @click:append="performSearch"
-    ></v-text-field>
+    <v-menu v-model="menu" bottom :offset-y="true">
+      <template v-slot:activator="{ on, attrs }">
+        <v-text-field
+          v-bind="attrs"
+          v-on="on"
+          class="pa-5 pb-1 mb-4"
+          outlined
+          label="Search github repositories"
+          v-model="searchQuery"
+          clearable
+          hide-details
+          :loading="loading"
+          @keyup.enter.native="performSearch"
+          @keyup.native="hideMenu"
+          append-icon="search"
+          @click:append="performSearch"
+        ></v-text-field>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="(term, index) in selectableOptions"
+          :key="index"
+          @click="selectTerm(term)"
+        >
+          <v-list-item-title>{{ term }}</v-list-item-title>
+
+          <v-list-item-icon>
+            <v-icon>chevron_right</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    
   </div>
 </template>
 
@@ -20,20 +42,32 @@ export default {
   data() {
     return {
       searchQuery: '',
+      menu: false,
     }
   },
   props: {
-    value: String,
     loading: Boolean,
+    selectableOptions: Array,
   },
   methods: {
+    selectTerm(selectedTerm) {
+      this.searchQuery = selectedTerm
+      this.performSearch()
+    },
     performSearch() {
       this.$emit('search', this.searchQuery)
     },
+    hideMenu() {
+      this.menu = false
+    }
   },
 }
 </script>
 
-<style>
+<style scoped>
+
+div.v-text-field__details {
+  display: none;
+}
 
 </style>
