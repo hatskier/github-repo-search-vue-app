@@ -12,7 +12,7 @@
         </v-list-item-title>
         <div class="mb-8">
           by
-          <a :href="ownerUrl" target="_blank">
+          <a :href="ownerUrl" id="owner-link" target="_blank">
             {{ owner }}
           </a>
         </div>
@@ -26,7 +26,9 @@
             </template>
             <span>Stars</span>
           </v-tooltip>
-          {{ stars }}
+          <span id="stars">
+            {{ stars }}
+          </span>
         </v-list-item-subtitle>
 
         <div class="mt-2 mb-2">
@@ -39,8 +41,9 @@
               </template>
               <span>Open issues</span>
             </v-tooltip>
-            
-            {{ openIssues }}
+            <span id="open-issues">
+              {{ openIssues }}
+            </span>
           </v-list-item-subtitle>
         </div>
       </v-list-item-content>
@@ -68,6 +71,7 @@
         :link="true"
         target="_blank"
         :href="url"
+        id="repo-link"
       >
         OPEN
         <v-icon
