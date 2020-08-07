@@ -1,5 +1,12 @@
 # github-repo-search-vue-app
 
+This web app allows you to search github repositories using public
+[GitHub GraphQL API](https://docs.github.com/en/graphql)
+
+## Demo
+- Hosted version: https://nervous-morse-eb5289.netlify.app/
+- Video demo: https://vimeo.com/445558027
+
 ## Project setup
 ```
 yarn

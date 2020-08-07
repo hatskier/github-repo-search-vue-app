@@ -42,13 +42,13 @@
     <v-container>
       <v-row>
         <v-col
-          v-for="({ repo, cursor }, index) in repositories"
+          v-for="({ repo }, index) in repositories"
           :key="index" cols="12" sm="6" md="4"
         >
           <GithubRepoCard
             :name="repo.name"
             :url="repo.url"
-            :owner="repo.owner.login + cursor"
+            :owner="repo.owner.login"
             :ownerUrl="repo.owner.url"
             :ownerAvatar="repo.owner.avatarUrl"
             :stars="repo.stars.totalCount"
@@ -131,32 +131,10 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 
 .light-text {
   font-weight: 300;
-}
-
-.square {
-  padding: 5px 10px;
-  border: 1px solid lightgray;
-  color: black;
-  border-radius: 3px;
-  width: 25px;
-  margin: 3px;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0 0 2px #1976d2;
-  }
-
-  &.disabled {
-    opacity: 0.5;
-    &:hover {
-      box-shadow: none;
-    }
-  }
-
 }
 
 </style>
