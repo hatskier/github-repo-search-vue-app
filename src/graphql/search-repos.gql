@@ -10,7 +10,6 @@ query($filterQuery: String!, $after: String, $pageSize: Int) {
       endCursor
     }
     repos: edges {
-      cursor
       repo: node {
         ... on Repository {
           owner {
@@ -21,7 +20,7 @@ query($filterQuery: String!, $after: String, $pageSize: Int) {
           }
           name
           url
-          openIssues: issues(states:OPEN) {
+          openIssues: issues(states: OPEN) {
             totalCount
           }
           stars: stargazers {

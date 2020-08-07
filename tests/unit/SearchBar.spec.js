@@ -70,7 +70,7 @@ describe('GithubRepoCard.vue', () => {
     expect(wrapper.emitted().search[0][0]).toBe(searchTerm)
   })
 
-  it('should emit search event on enter keypress', () => {
+  it('should emit search event on enter keyup', () => {
     const searchTerm = 'Test search term'
 
     const wrapper = mountFunction({
