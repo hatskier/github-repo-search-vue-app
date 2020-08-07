@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GithubRepoCard.vue should indicate loading 1`] = `
+<div>
+  <div class="v-menu">
+    <div class="v-input pa-5 pb-1 mb-4 v-input--hide-details v-input--is-loading theme--light v-text-field v-text-field--enclosed v-text-field--outlined">
+      <div class="v-input__control">
+        <div class="v-input__slot">
+          <fieldset aria-hidden="true">
+            <legend style="width: 0px;"><span>​</span></legend>
+          </fieldset>
+          <div class="v-text-field__slot"><label for="input-3" class="v-label theme--light" style="left: 0px; position: absolute;">Search github repositories | click to select from saved</label><input data-cy="search-input" role="button" aria-haspopup="true" aria-expanded="false" id="input-3" type="text"></div>
+          <div class="v-input__append-inner">
+            <div class="v-input__icon v-input__icon--clear"><button disabled="disabled" type="button" aria-label="clear icon" class="v-icon notranslate v-icon--disabled v-icon--link mdi mdi-close theme--light"></button></div>
+          </div>
+          <div class="v-input__append-inner">
+            <div class="v-input__icon v-input__icon--append"><button type="button" aria-label="append icon" class="v-icon notranslate v-icon--link material-icons theme--light">search</button></div>
+          </div>
+          <div role="progressbar" aria-valuemin="0" aria-valuemax="100" class="v-progress-linear v-progress-linear--absolute theme--light" style="height: 2px;">
+            <div class="v-progress-linear__background primary" style="opacity: 0.3; left: 0%; width: 100%;"></div>
+            <div class="v-progress-linear__buffer"></div>
+            <div class="v-progress-linear__indeterminate v-progress-linear__indeterminate--active">
+              <div class="v-progress-linear__indeterminate long primary"></div>
+              <div class="v-progress-linear__indeterminate short primary"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`GithubRepoCard.vue should not indicate loading 1`] = `
+<div>
+  <div class="v-menu">
+    <div class="v-input pa-5 pb-1 mb-4 v-input--hide-details theme--light v-text-field v-text-field--enclosed v-text-field--outlined">
+      <div class="v-input__control">
+        <div class="v-input__slot">
+          <fieldset aria-hidden="true">
+            <legend style="width: 0px;"><span>​</span></legend>
+          </fieldset>
+          <div class="v-text-field__slot"><label for="input-11" class="v-label theme--light" style="left: 0px; position: absolute;">Search github repositories | click to select from saved</label><input data-cy="search-input" role="button" aria-haspopup="true" aria-expanded="false" id="input-11" type="text"></div>
+          <div class="v-input__append-inner">
+            <div class="v-input__icon v-input__icon--clear"><button disabled="disabled" type="button" aria-label="clear icon" class="v-icon notranslate v-icon--disabled v-icon--link mdi mdi-close theme--light"></button></div>
+          </div>
+          <div class="v-input__append-inner">
+            <div class="v-input__icon v-input__icon--append"><button type="button" aria-label="append icon" class="v-icon notranslate v-icon--link material-icons theme--light">search</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!---->
+  </div>
+</div>
+`;

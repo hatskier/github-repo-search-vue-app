@@ -7,8 +7,6 @@ query($filterQuery: String!, $after: String, $pageSize: Int) {
   ) {
     pageInfo {
       hasNextPage
-      hasPreviousPage
-      startCursor
       endCursor
     }
     repos: edges {

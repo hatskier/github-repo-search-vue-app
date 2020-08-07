@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GithubRepoCard.vue renders main props when passed 1`] = `
+exports[`GithubRepoCard.vue should render main props 1`] = `
 <div class="mx-auto v-card v-sheet v-sheet--outlined theme--light" style="max-width: 600px;">
   <div tabindex="-1" class="v-list-item v-list-item--three-line theme--light">
     <div class="v-list-item__content">

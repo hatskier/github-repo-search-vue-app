@@ -1,5 +1,4 @@
 // Libraries
-// import Vue from 'vue'
 import Vuetify from 'vuetify'
 
 // Components
@@ -26,7 +25,7 @@ describe('GithubRepoCard.vue', () => {
     })
   }
 
-  it('renders main props when passed', () => {
+  it('should render main props', () => {
     const name = 'Test repo name'
     const stars = 10
     const owner = 'Hehehe'
